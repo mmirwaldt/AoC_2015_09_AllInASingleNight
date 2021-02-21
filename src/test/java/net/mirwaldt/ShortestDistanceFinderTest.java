@@ -17,11 +17,11 @@ public class ShortestDistanceFinderTest {
 
     @ParameterizedTest
     @MethodSource("shortestDistanceFinder")
-    void test_noCircuit(ShortestDistanceFinder shortestDistanceFinder) {
+    void test_simpleExample(ShortestDistanceFinder shortestDistanceFinder) {
         shortestDistanceFinder.addPath("London", "Dublin", 464);
         shortestDistanceFinder.addPath("London", "Belfast", 518);
         shortestDistanceFinder.addPath("Dublin", "Belfast", 141);
-        final ShortestDistanceFinder.ShortestDistancePath path = shortestDistanceFinder.findShortestDistance();
+        final ShortestDistancePath path = shortestDistanceFinder.findShortestDistance();
         assertEquals(Arrays.asList("London", "Dublin", "Belfast"), path.getPlaces());
         assertEquals(605, path.getDistance());
     }
