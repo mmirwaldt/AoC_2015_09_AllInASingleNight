@@ -10,18 +10,18 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ShortestDistanceFinderTest {
+public class RouteFinderTest {
     private static Stream<Arguments> shortestDistanceFinder() {
-        return Stream.of(Arguments.of(new BruteForceShortestDistanceFinder()));
+        return Stream.of(Arguments.of(new BruteForceRouteFinder()));
     }
 
     @ParameterizedTest
     @MethodSource("shortestDistanceFinder")
-    void test_simpleExample(ShortestDistanceFinder shortestDistanceFinder) {
-        shortestDistanceFinder.addPath("London", "Dublin", 464);
-        shortestDistanceFinder.addPath("London", "Belfast", 518);
-        shortestDistanceFinder.addPath("Dublin", "Belfast", 141);
-        final ShortestDistancePath path = shortestDistanceFinder.findShortestDistance();
+    void test_simpleExample(RouteFinder routeFinder) {
+        routeFinder.addPath("London", "Dublin", 464);
+        routeFinder.addPath("London", "Belfast", 518);
+        routeFinder.addPath("Dublin", "Belfast", 141);
+        final Route path = routeFinder.findShortestDistance();
         assertEquals(Arrays.asList("London", "Dublin", "Belfast"), path.getPlaces());
         assertEquals(605, path.getDistance());
     }

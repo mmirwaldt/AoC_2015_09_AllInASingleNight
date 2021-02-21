@@ -6,17 +6,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-public class ShortestDistanceFinderMain {
+public class RouteFinderMain {
     public static void main(String[] args) throws IOException {
         final List<String> lines = Files.readAllLines(Path.of("input.txt"), StandardCharsets.US_ASCII);
-        final ShortestDistanceFinder shortestDistanceFinder = new BruteForceShortestDistanceFinder();
+        final RouteFinder routeFinder = new BruteForceRouteFinder();
         for (String line : lines) {
             final String[] tokens = line.split(" ");
-            shortestDistanceFinder.addPath(tokens[0], tokens[2], Integer.parseInt(tokens[4]));
+            routeFinder.addPath(tokens[0], tokens[2], Integer.parseInt(tokens[4]));
         }
-        final ShortestDistancePath shortestDistancePath = shortestDistanceFinder.findShortestDistance();
+        final Route route = routeFinder.findShortestDistance();
 
         // result - [Tristram, AlphaCentauri, Norrath, Straylight, Faerun, Snowdin, Tambi, Arbre] : 141
-        System.out.println(shortestDistancePath.getPlaces() + " : " + shortestDistancePath.getDistance());
+        System.out.println(route.getPlaces() + " : " + route.getDistance());
     }
 }

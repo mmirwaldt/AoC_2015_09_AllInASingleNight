@@ -3,7 +3,7 @@ package net.mirwaldt;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class BruteForceShortestDistanceFinder implements ShortestDistanceFinder {
+public class BruteForceRouteFinder implements RouteFinder {
     private final Map<Set<String>, Integer> routes = new HashMap<>();
 
     @Override
@@ -15,14 +15,14 @@ public class BruteForceShortestDistanceFinder implements ShortestDistanceFinder 
     }
 
     @Override
-    public ShortestDistancePath findShortestDistance() {
+    public Route findShortestDistance() {
         if (routes.isEmpty()) {
-            return new ShortestDistancePath(Collections.emptyList(), 0);
+            return new Route(Collections.emptyList(), 0);
         } else {
             final Optional<Map.Entry<List<String>, Integer>> optionalShortestDistanceRoute =
                     new InternalBruteForceShortestDistanceFinder(routes).traverseAllPlaces();
             final Map.Entry<List<String>, Integer> entry = optionalShortestDistanceRoute.get();
-            return new ShortestDistancePath(entry.getKey(), entry.getValue());
+            return new Route(entry.getKey(), entry.getValue());
         }
     }
 

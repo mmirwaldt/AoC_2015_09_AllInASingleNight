@@ -4,11 +4,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-public class ShortestDistancePath implements Comparable<ShortestDistancePath>{
+public class Route implements Comparable<Route>{
     private final List<String> places;
     private final int distance;
 
-    public ShortestDistancePath(List<String> places, int distance) {
+    public Route(List<String> places, int distance) {
         this.places = places;
         this.distance = distance;
     }
@@ -25,7 +25,7 @@ public class ShortestDistancePath implements Comparable<ShortestDistancePath>{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ShortestDistancePath that = (ShortestDistancePath) o;
+        Route that = (Route) o;
         return distance == that.distance && Objects.equals(places, that.places);
     }
 
@@ -43,7 +43,7 @@ public class ShortestDistancePath implements Comparable<ShortestDistancePath>{
     }
 
     @Override
-    public int compareTo(ShortestDistancePath other) {
+    public int compareTo(Route other) {
         int result = Integer.compare(this.distance, other.distance);
         if(result == 0) {
             Iterator<String> thisIterator = places.listIterator();
