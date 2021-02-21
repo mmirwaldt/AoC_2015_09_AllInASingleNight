@@ -15,12 +15,28 @@ public class BruteForceRouteFinder implements RouteFinder {
     }
 
     @Override
-    public Route findShortestDistance() {
+    public Route findShortestRoute() {
         if (routes.isEmpty()) {
             return new Route(Collections.emptyList(), 0);
         } else {
             final Optional<Map.Entry<List<String>, Integer>> optionalShortestDistanceRoute =
-                    new InternalBruteForceShortestDistanceFinder(routes).traverseAllPlaces();
+                    new InternalBruteForceShortestDistanceFinder(routes).traverseAllPlaces()
+                            .entrySet().stream()
+                            .min(Comparator.comparingInt(Map.Entry::getValue));
+            final Map.Entry<List<String>, Integer> entry = optionalShortestDistanceRoute.get();
+            return new Route(entry.getKey(), entry.getValue());
+        }
+    }
+
+    @Override
+    public Route findLongestRoute() {
+        if (routes.isEmpty()) {
+            return new Route(Collections.emptyList(), 0);
+        } else {
+            final Optional<Map.Entry<List<String>, Integer>> optionalShortestDistanceRoute =
+                    new InternalBruteForceShortestDistanceFinder(routes).traverseAllPlaces()
+                            .entrySet().stream()
+                            .max(Comparator.comparingInt(Map.Entry::getValue));
             final Map.Entry<List<String>, Integer> entry = optionalShortestDistanceRoute.get();
             return new Route(entry.getKey(), entry.getValue());
         }
@@ -37,15 +53,14 @@ public class BruteForceRouteFinder implements RouteFinder {
                     .collect(Collectors.toSet());
         }
 
-        private Optional<Map.Entry<List<String>, Integer>> traverseAllPlaces() {
+        private Map<List<String>, Integer> traverseAllPlaces() {
             Map<List<String>, Integer> traversedPlaces = new HashMap<>();
             addPathStarts(traversedPlaces);
             for (int length = 3; length <= allPlaces.size(); length++) {
                 traversedPlaces = traversePlaces(traversedPlaces);
             }
 
-            return traversedPlaces.entrySet().stream()
-                    .min(Comparator.comparingInt(Map.Entry::getValue));
+            return traversedPlaces;
         }
 
         private Map<List<String>, Integer> traversePlaces(Map<List<String>, Integer> traversedPaths) {

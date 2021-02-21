@@ -14,9 +14,14 @@ public class RouteFinderMain {
             final String[] tokens = line.split(" ");
             routeFinder.addPath(tokens[0], tokens[2], Integer.parseInt(tokens[4]));
         }
-        final Route route = routeFinder.findShortestDistance();
+        final Route shortestRoute = routeFinder.findShortestRoute();
 
         // result - [Tristram, AlphaCentauri, Norrath, Straylight, Faerun, Snowdin, Tambi, Arbre] : 141
-        System.out.println(route.getPlaces() + " : " + route.getDistance());
+        System.out.println(shortestRoute.getPlaces() + " : " + shortestRoute.getDistance());
+
+        final Route longestRoute = routeFinder.findLongestRoute();
+
+        // result - [AlphaCentauri, Arbre, Tristram, Snowdin, Straylight, Tambi, Norrath, Faerun] : 736
+        System.out.println(longestRoute.getPlaces() + " : " + longestRoute.getDistance());
     }
 }

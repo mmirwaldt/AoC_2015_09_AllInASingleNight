@@ -21,7 +21,7 @@ public class RouteFinderTest {
         routeFinder.addPath("London", "Dublin", 464);
         routeFinder.addPath("London", "Belfast", 518);
         routeFinder.addPath("Dublin", "Belfast", 141);
-        final Route path = routeFinder.findShortestDistance();
+        final Route path = routeFinder.findShortestRoute();
         assertEquals(Arrays.asList("London", "Dublin", "Belfast"), path.getPlaces());
         assertEquals(605, path.getDistance());
     }
