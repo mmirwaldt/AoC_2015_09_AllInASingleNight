@@ -1,14 +1,14 @@
-package net.mirwaldt;
+package net.mirwaldt.aoc.year2015.day09;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class BruteForceRouteFinder implements RouteFinder {
-    private final Map<Set<String>, Integer> routes = new HashMap<>();
+    private final Map<Set<String>, Integer> routes = new LinkedHashMap<>();
 
     @Override
     public void addPath(String from, String to, int distance) {
-        final Set<String> places = new HashSet<>();
+        final Set<String> places = new LinkedHashSet<>();
         places.add(from);
         places.add(to);
         routes.put(places, distance);
